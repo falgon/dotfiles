@@ -33,6 +33,9 @@ on_ft = 'dhall'
 [[plugins]]
 repo = 'LumaKernel/coqpit.vim'
 on_ft = 'coq'
+hook_add = '''
+    let g:coqpit_auto_launch=0
+  '''
 
 [[plugins]]
 repo = 'leafgarland/typescript-vim'
