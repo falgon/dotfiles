@@ -1,0 +1,51 @@
+[[plugins]]
+repo = 'drmingdrmer/vim-syntax-markdown'
+on_ft = 'markdown'
+hook_add = '''
+    let g:markdown_fenced_languages = [
+        \ 'cpp',
+        \ 'haskell',
+    \]
+    highlight link markdownItalic NONE
+
+    " This gets rid of the nasty _ italic bug in tpope's vim-markdown
+    " block $$...$$
+    syn region math start=/\$\$/ end=/\$\$/
+    " inline math
+    syn match math '\$[^$].\{-}\$'
+
+    " actually highlight the region we defined as "math"
+    hi link math Statement
+  '''
+
+[[plugins]]
+repo = 'cespare/vim-toml'
+on_ft = 'toml'
+
+[[plugins]]
+repo = 'hail2u/vim-css3-syntax'
+on_ft = ['css', 'scss', 'sass']
+
+[[plugins]]
+repo = 'vmchale/dhall-vim'
+on_ft = 'dhall'
+
+[[plugins]]
+repo = 'LumaKernel/coqpit.vim'
+on_ft = 'coq'
+
+[[plugins]]
+repo = 'leafgarland/typescript-vim'
+on_ft = 'typescript'
+
+[[plugins]]
+repo = 'Shougo/neoinclude.vim'
+on_ft = ['c', 'h', 'cpp', 'hpp']
+
+[[plugins]]
+repo = 'alx741/vim-stylishask'
+on_ft = ['hs', 'hsc']
+hook_add = '''
+    let g:stylishask_on_save = 1
+    let g:stylishask_config_file = "~/.stylish-haskell.yaml"
+  '''
