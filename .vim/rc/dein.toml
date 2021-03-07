@@ -41,7 +41,7 @@ hook_add = '''
     call deoplete#custom#option('camel_case', v:false)
     call deoplete#custom#option('ignore_case', v:false)
     call deoplete#custom#option('refresh_always', v:false)
-  	call deoplete#custom#option('smart_case', v:true)
+    call deoplete#custom#option('smart_case', v:true)
     call deoplete#custom#option('max_list', 10000)
     call deoplete#custom#option('auto_complete_delay', 0)
   '''
@@ -123,3 +123,6 @@ hook_add = '''
     endfunction
     set laststatus=2
   '''
+
+[[plugins]]
+repo = 'tpope/vim-obsession'
