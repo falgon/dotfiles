@@ -47,8 +47,26 @@ on_ft = ['c', 'h', 'cpp', 'hpp']
 
 [[plugins]]
 repo = 'alx741/vim-stylishask'
-on_ft = ['hs', 'hsc']
+on_ft = ['haskell', 'hs', 'hsc']
 hook_add = '''
     let g:stylishask_on_save = 1
-    let g:stylishask_config_file = "~/.stylish-haskell.yaml"
+    let g:stylishask_config_file = "~/.vim/.stylish-haskell.yaml"
   '''
+
+[[plugins]]
+repo = 'neovimhaskell/haskell-vim'
+on_ft = ['haskell', 'cabal', 'hs', 'hsc']
+hook_add = '''
+    let g:haskell_enable_quantification = 1   " to enable highlighting of `forall`
+    let g:haskell_enable_recursivedo = 1      " to enable highlighting of `mdo` and `rec`
+    let g:haskell_enable_arrowsyntax = 1      " to enable highlighting of `proc`
+    let g:haskell_enable_pattern_synonyms = 1 " to enable highlighting of `pattern`
+    let g:haskell_enable_typeroles = 1        " to enable highlighting of type roles
+    let g:haskell_enable_static_pointers = 1  " to enable highlighting of `static`
+    let g:haskell_backpack = 1                " to enable highlighting of backpack keywords
+  '''
+
+[[plugins]]
+repo = 'idris-hackers/idris-vim'
+on_ft = ['idris']
+

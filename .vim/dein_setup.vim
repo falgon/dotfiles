@@ -28,3 +28,5 @@ syntax enable
 if dein#check_install()
   call dein#install()
 endif
+
+let g:dein#auto_recache = 1
