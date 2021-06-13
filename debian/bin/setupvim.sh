@@ -39,6 +39,9 @@ if ! type "pip3" > /dev/null 2>&1; then
     fi
     pyenv global $PYTHON_VERSION
 fi
+pip install --user --upgrade neovim
+pip3 install --user --upgrade neovim
+pip install --user --upgrade pynvim
 pip3 install --user --upgrade pynvim
 
 if ! type "stylish-haskell" > /dev/null 2>&1; then
