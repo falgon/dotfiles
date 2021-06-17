@@ -1,8 +1,9 @@
 #!/bin/bash
 
-CWD=$(cd $(dirname $0); pwd)
+set -eu
 
-cd $HOME
+readonly PYTHON_VERSION=3.9.5
+readonly CWD=$(cd $(dirname $0); pwd)
 
 if ! type "pip3" > /dev/null 2>&1; then
     sudo apt-get update
@@ -18,27 +19,33 @@ if ! type "pip3" > /dev/null 2>&1; then
         git
     sudo apt-get clean
     git clone https://github.com/pyenv/pyenv.git $HOME/.pyenv
-    echo 'export PYENV_ROOT="$HOME/.pyenv"' >> ~/.zshrc
-    echo 'export PATH="$HOME/.pyenv/bin:$PATH"' >> ~/.zshrc
-    echo 'eval "$(pyenv init -)"' >> ~/.zshrc
-    source ~/.zshrc
+    readonly _PID=$$;
+    readonly _PPID=$(ps -o ppid -p $_PID | tail -n 1);
+    if ps -p $_PPID | grep -qs bash ; then
+        set +e
+        pushd $HOME/.pyenv && src/configure && make -C src; popd
+        set -e
+    fi
+    export PYENV_ROOT="$HOME/.pyenv"
+    export PATH="$PYENV_ROOT/bin:$PATH"
+    eval "$(pyenv init --path)"
     pyenv -v
-    pyenv install-latest
+    git clone https://github.com/momo-lab/pyenv-install-latest.git \
+        "$(pyenv root)"/plugins/pyenv-install-latest
+    pyenv install $PYTHON_VERSION
     if ! type "pip3" > /dev/null 2>&1; then
         echo "could not install pip3"
         exit 1
     fi
+    pyenv global $PYTHON_VERSION
 fi
+pip install --user --upgrade neovim
+pip3 install --user --upgrade neovim
+pip install --user --upgrade pynvim
 pip3 install --user --upgrade pynvim
 
 if ! type "stylish-haskell" > /dev/null 2>&1; then
-    if ! type "stack" > /dev/null 2>&1; then
-        sudo apt-get -y install \
-            libtinfo-dev \
-            git
-        sudo apt-get clean
-        curl -sSL https://get.haskellstack.org/ | sh
-    fi
+    $CWD/../../setup_stack.sh
     stack install stylish-haskell
     if ! type "stylish-haskell" > /dev/null 2>&1; then
         echo "could not install stylish-haskell"
@@ -46,7 +53,8 @@ if ! type "stylish-haskell" > /dev/null 2>&1; then
     fi
 fi
 
-cp $CWD/../.stylish-haskell.yaml $HOME
 mkdir -p $HOME/.vim
-cp -r $CWD/../.vim/ $HOME
+cp -r $CWD/../.vim $HOME
 cp $CWD/../.vimrc $HOME
+
+sudo apt-get -y autoremove
