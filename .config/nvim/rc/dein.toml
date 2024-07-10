@@ -2,51 +2,11 @@
 repo = 'Shougo/dein.vim'
 
 [[plugins]]
-repo = 'Shougo/context_filetype.vim'
-
-[[plugins]]
 repo = 'Shougo/deoplete.nvim'
 on_event = 'InsertCharPre'
-depends = 'context_filetype.vim'
+depends = ['context_filetype.vim']
 hook_add = '''
-    call deoplete#enable()
-    " No display of the number of competion list
-    set shortmess+=c
-
-    " <TAB>: completion.
-    inoremap <silent><expr> <TAB>
-          \ pumvisible() ? "\<C-n>" :
-          \ <SID>check_back_space() ? "\<TAB>" :
-          \ deoplete#manual_complete()
-    function! s:check_back_space() abort
-      let col = col('.') - 1
-      return !col || getline('.')[col - 1]  =~ '\s'
-    endfunction
-
-    " <S-TAB>: completion back.
-    inoremap <expr><S-TAB>  pumvisible() ? "\<C-p>" : "\<C-h>"
-    " <C-e>: popup cancel
-    inoremap <expr><C-e>       deoplete#cancel_popup()
-
-    call deoplete#custom#source('_', 'matchers', ['matcher_head'])
-    call deoplete#custom#source('_', 'converters', [
-          \ 'converter_remove_paren',
-          \ 'converter_remove_overlap',
-          \ 'matcher_length',
-          \ 'converter_truncate_abbr',
-          \ 'converter_truncate_menu',
-          \ 'converter_auto_delimiter',
-          \ ])
-    call deoplete#custom#option('keyword_patterns', {
-          \ '_': '[a-zA-Z_]\k*\(?',
-          \ 'tex': '[^\w|\s][a-zA-Z_]\w*',
-          \ })
-    call deoplete#custom#option('camel_case', v:false)
-    call deoplete#custom#option('ignore_case', v:false)
-    call deoplete#custom#option('refresh_always', v:false)
-    call deoplete#custom#option('smart_case', v:true)
-    call deoplete#custom#option('max_list', 10000)
-    call deoplete#custom#option('auto_complete_delay', 0)
+    let g:deoplete#enable_at_startup = 1
   '''
 on_i = 1
 
@@ -59,7 +19,6 @@ repo = 'roxma/vim-hug-neovim-rpc'
 [[plugins]]
 repo = 'osyo-manga/vim-precious'
 depends = ['context_filetype.vim']
-
 
 [[plugins]]
 repo = 'itchyny/lightline.vim'
@@ -128,3 +87,5 @@ hook_add = '''
 [[plugins]]
 repo = 'tpope/vim-obsession'
 
+[[plugins]]
+repo = 'Shougo/context_filetype.vim'
